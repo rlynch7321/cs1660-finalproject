@@ -41,10 +41,10 @@ Lines in the files are first stripped of some punctuation like commas, periods, 
 
 Key (Text) | Value (Text)
 ---|---
-hello | file1.txt\|1
-hello | file1.txt\|1
-hello | file2.txt\|1
-world | file2.txt\|1
+hello | file1.txt\~1
+hello | file1.txt\~1
+hello | file2.txt\~1
+world | file2.txt\~1
 
 The key is the word and the value is a string representing the file and the number of occurrences of the word.
 
@@ -52,7 +52,11 @@ In the reduce phase, a key and a list of values are passed in. A HashMap is crea
 
 Key (Text) | Value (Text)
 ---|---
-hello | file1.txt~2\|file2.txt\|1
+hello | file1.txt~2\|file2.txt\~1
 world | file2.txt~1
 
 The value is now a string representing all the files in which the word was located as well as the number of occurrences in each file. Each file-count pair is separated by a `|` and each half of the pair is separated by a `~`.
+
+Originally, the implementation of the reduce function could only handle single-pair values like `file1.txt\~1`, so it was not possible to do any combining. However, I made a last-minute decision to refactor the code to allow for the combining of data before it is sent to the reducer. It can now process multi-pair input like `file1.txt~2\|file2.txt\~1` by first splitting the pairs on `|` and then getting the individual values from each pair by splitting again on `~`.
+
+This modification meant the Reducer only had 84,931 input records instead of the previous 2,628,256, and the execution time of the job was shortened by several seconds.
