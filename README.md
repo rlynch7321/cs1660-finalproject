@@ -46,7 +46,7 @@ world | file2.txt\~1
 
 The key is the word and the value is a string representing the file and the number of occurrences of the word.
 
-In the reduce phase, a key and a list of values are passed in. A HashMap is created and the list of values is processed such that each unique key is located on just one line in the final output, which for the above example, would look like this:
+In the reduce phase, a key and a list of values are passed in. A HashMap is created to store filenames and counts, and the list of values is processed. For each key, the HashMap is converted to a single string so that each word gets just one line in the final output, which for the above example, would look like this:
 
 Key (Text) | Value (Text)
 ---|---
