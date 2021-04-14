@@ -25,7 +25,7 @@ Before running the GUI on your machine, you will have to be running XLaunch (or 
 
 Unfortunately I was not able to get the program properly integrated, and so the GUI does not communicate with the cloud and vice versa. 
 
-## The GUI
+## TermSearchGUI.java
 
 Since the files we want to search are assumed to already be on the cloud (uploading not required), the user is first presented with a menu to select which files to search. Selecting no files and attempting to proceed will trigger a pop-up telling the user that they must select at least one file.
 
