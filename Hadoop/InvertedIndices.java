@@ -35,7 +35,7 @@ public class InvertedIndices
 	    @Override
 	    public void map(Object key, Text value, Context context) throws IOException, InterruptedException
 	    {
-	    	String line = value.toString().toLowerCase().replaceAll("([,.!;:?\"*_\\]\\[\\)\\(])+", "").replace("--", " ");
+	    	String line = value.toString().toLowerCase().replaceAll("([,.!;:?\"*_\\]\\[\\)\\(])+", "").replace("--", " ").replaceAll("^[ \t]+|[ \t]+$", "").replaceAll("(\\B'\\b)|(\\b'\\B)", "").replaceAll("(\\b[0-9]+\\b)", "");
 	    	StringTokenizer itr = new StringTokenizer(line);
 	    	while (itr.hasMoreTokens())
 	    	{
