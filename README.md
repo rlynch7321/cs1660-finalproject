@@ -35,7 +35,7 @@ Next, the user is asked to choose between searching for a term or viewing Top-N 
 
 InvertedIndex.java is the MapReduce program deployed to the cloud that generates the Inverted Indexes.
 
-Lines in the files are first stripped of some punctuation like commas, periods, quotes, etc. Double dashes (`--`) are replaced with spaces. No filters were applied to  the words, simply because the program wasn't fully integrated, and without being able to actually generate the Top-N results, the need to remove overly common words from the output never arose. Each line is then tokenized and written to the context as follows:
+Lines in the files are first stripped of some punctuation like commas, periods, quotes, etc. Double dashes (`--`) are replaced with spaces. No filters were applied to  remove common words, largely because the program wasn't fully integrated, and without being able to actually generate the Top-N results, the need to remove overly common words from the output never arose. Each line is then tokenized and written to the context as follows:
 
 Key (Text) | Value (Text)
 ---|---
