@@ -23,7 +23,7 @@ Before running the GUI on your machine, you will have to be running XLaunch (or 
 
 ## A Note on Integration
 
-Unfortunately I was not able to get the program properly integrated, and so the GUI does not communicate with the cloud and vice versa. 
+Unfortunately I was not able to get the program properly integrated, and so the GUI does not communicate with the cloud and vice versa. At multiple points in the program, the GUI outputs to the console to demonstrate that inputs are being parsed properly and that there *should* be things happening behind the scenes that aren't.
 
 ## TermSearchGUI.java
 
@@ -31,13 +31,11 @@ Since the files we want to search are assumed to already be on the cloud (upload
 
 Next, the user is asked to choose between searching for a term or viewing Top-N results. In either case, the user is presented with a text box to enter their term (or N value). If Top-N is selected, the text box is first validated to ensure the value is a positive integer. At this point, the results of the user's request are displayed and the user can Exit the program when finished.
 
-At multiple points in the program, the GUI outputs information to the console to demonstrate that inputs are being parsed properly and that there *should* be things happening behind the scenes that aren't.
-
 ## InvertedIndex.java
 
-InvertedIndex.java is the MapReduce program deployed to the cloud that generates the Inverted Indexes for the files.
+InvertedIndex.java is the MapReduce program deployed to the cloud that generates the Inverted Indexes.
 
-Lines in the files are first stripped of some punctuation like commas, periods, quotes, etc. Double dashes (`--`) are replaced with spaces. The lines are tokenized and written to the context as follows:
+Lines in the files are first stripped of some punctuation like commas, periods, quotes, etc. Double dashes (`--`) are replaced with spaces. No filters were applied to  the words, simply because the program wasn't fully integrated, and without being able to actually generate the Top-N results, the need to remove overly common words from the output never arose. Each line is then tokenized and written to the context as follows:
 
 Key (Text) | Value (Text)
 ---|---
@@ -59,4 +57,4 @@ The value is now a string representing all the files in which the word was locat
 
 Originally, the implementation of the reduce function could only handle single-pair values like `file1.txt\~1`, so it was not possible to do any combining. However, I made a last-minute decision to refactor the code to allow for the combining of data before it is sent to the reducer. It can now process multi-pair input like `file1.txt~2\|file2.txt\~1` by first splitting the pairs on `|` and then getting the individual values from each pair by splitting again on `~`.
 
-This modification meant the Reducer only had 84,931 input records instead of the previous 2,628,256, and the execution time of the job was shortened by several seconds.
+This modification meant the reducer only had 84,931 input records instead of the previous 2,628,256 - and the execution time of the job was shortened by several seconds.
