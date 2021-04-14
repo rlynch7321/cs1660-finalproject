@@ -193,7 +193,7 @@ public class TermSearchGUI implements ActionListener
         }
         else if(buttonClicked == buttonSearch)
         {
-        	System.out.println("Searched for \'" + textFieldSearchTerm.getText() + "\'");
+        	System.out.println("Searched for \'" + textFieldSearchTerm.getText() + "\'. Results should be received and displayed on screen");
         	
         	cl.show(cards,  "panelSearchResults");
         }
@@ -207,7 +207,7 @@ public class TermSearchGUI implements ActionListener
         		{
         			nVal = tempN;
         			
-        			System.out.println("Request for Top-N, N=" + nVal);
+        			System.out.println("Request for Top-N, N=" + nVal + ". Results should be received and displayed on screen");
         			cl.show(cards, "panelTopNResults");
         		}
         		else
