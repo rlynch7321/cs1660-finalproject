@@ -40,7 +40,7 @@ public class InvertedIndices
 	    	while (itr.hasMoreTokens())
 	    	{
 	    		word.set(itr.nextToken());
-	    		context.write(word, new Text(fileName + "|1"));
+	    		context.write(word, new Text(fileName + "~1"));
 	    		Counter counter = context.getCounter(CountersEnum.class.getName(), CountersEnum.INPUT_WORDS.toString());
 	    		counter.increment(1);
 	    	}
@@ -57,25 +57,20 @@ public class InvertedIndices
 			
 			for (Text val : values)
 			{
-				System.out.println("key: " + key.toString() + " // val: " + val.toString());
 				String[] valArray = val.toString().split("\\|");
 				
-				String fileName = valArray[0];
-				int count = Integer.parseInt(valArray[1]);
-				
-				System.out.println("fileName: " + fileName);
-				System.out.println("count: " + count);
-
-				if(filesAndCounts.containsKey(fileName))
+				for(int x = 0; x < valArray.length; x++)
 				{
-					filesAndCounts.put(fileName, filesAndCounts.get(fileName) + count);
-					System.out.println(key.toString() + " already seen in file " + fileName + ". New count is " + filesAndCounts.get(fileName));
-				}
+					String[] fileCountPair = valArray[x].split("~");
 					
-				else
-				{
-					filesAndCounts.put(fileName, count);
-					System.out.println(key.toString() + " not seen yet in file " + fileName + ". Adding to hashmap with count 1.");
+					String fileName = fileCountPair[0];
+					int count = Integer.parseInt(fileCountPair[1]);
+					
+					if(filesAndCounts.containsKey(fileName))
+						filesAndCounts.put(fileName, filesAndCounts.get(fileName) + count);
+						
+					else
+						filesAndCounts.put(fileName, count);
 				}
 			}
 			
@@ -106,7 +101,7 @@ public class InvertedIndices
 	    Job job = Job.getInstance(conf, "invind");
 	    job.setJarByClass(InvertedIndices.class);
 	    job.setMapperClass(InvIndMapper.class);
-	    //job.setCombinerClass(InvIndReducer.class);
+	    job.setCombinerClass(InvIndReducer.class);
 	    job.setReducerClass(InvIndReducer.class);
 	    job.setOutputKeyClass(Text.class);
 	    job.setOutputValueClass(Text.class);
