@@ -58,3 +58,7 @@ The value is now a string representing all the files in which the word was locat
 Originally, the implementation of the reduce function could only handle single-pair values like `file1.txt~1`, so it was not possible to do any combining. However, I made a last-minute decision to refactor the code to allow for the combining of data before it is sent to the reducer. It can now process multi-pair input like `file1.txt~2|file2.txt~1` by first splitting the pairs on `|` and then getting the individual values from each pair by splitting again on `~`.
 
 This modification meant the reducer only had 84,931 input records instead of the previous 2,628,256 - and the execution time of the job was shortened by several seconds.
+
+# Video Walkthrough
+
+https://pitt-my.sharepoint.com/:v:/g/personal/ral94_pitt_edu/EUNzMLnPu1lInb-ysxmVracBNMvE-AxKMaf5m6bCbuMdVA?e=aej8bG
